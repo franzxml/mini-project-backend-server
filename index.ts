@@ -11,6 +11,20 @@ Bun.serve({
   async fetch(req) {
     const url = new URL(req.url);
 
+    // DASHBOARD
+    if (url.pathname == "/dashboard") {
+      return new Response(render("dashboard", "<h2 class='text-2xl font-bold'>Dashboard</h2><p class='mt-4'>Selamat datang di Sistem Data Mahasiswa.</p>"), {
+        headers: { "Content-Type": "text/html" }
+      });
+    }
+
+    // JURUSAN
+    if (url.pathname == "/jurusan") {
+      return new Response(render("jurusan", "<h2 class='text-2xl font-bold'>Daftar Jurusan</h2><p class='mt-4'>Fitur pengelolaan jurusan akan segera hadir.</p>"), {
+        headers: { "Content-Type": "text/html" }
+      });
+    }
+
     // LIST DATA
     if (url.pathname == "/") {
       const [rows]: any = await db.query("SELECT * FROM mahasiswa");

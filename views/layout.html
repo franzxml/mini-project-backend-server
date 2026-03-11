@@ -4,12 +4,34 @@
     <title>CRUD Mahasiswa</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-100">
-    <div class="bg-blue-600 text-white p-4">
+  <body class="bg-gray-100 flex flex-col min-h-screen">
+    <!-- Header -->
+    <div class="bg-blue-600 text-white p-4 shadow-lg">
       <h1 class="text-xl font-bold">Sistem Data Mahasiswa</h1>
     </div>
-    <div class="container mx-auto p-6">
-      {{content}}
+
+    <div class="flex flex-1 overflow-hidden">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white shadow-md flex-shrink-0">
+        <nav class="p-4 space-y-2">
+          <a href="/dashboard" class="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 font-medium">
+            Dashboard
+          </a>
+          <a href="/" class="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 font-medium">
+            Mahasiswa
+          </a>
+          <a href="/jurusan" class="block p-3 rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors duration-200 font-medium">
+            Jurusan
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto p-8 bg-gray-50">
+        <div class="max-w-6xl mx-auto bg-white rounded-xl shadow-sm p-6">
+          {{content}}
+        </div>
+      </main>
     </div>
   </body>
 </html>
