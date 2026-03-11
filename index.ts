@@ -50,6 +50,39 @@ Bun.serve({
       });
     }
 
+    // FORM EDIT
+    if (url.pathname.startsWith("/edit/")) {
+      const id = url.pathname.split("/")[2];
+      const [rows]: any = await db.query("SELECT * FROM mahasiswa WHERE id=?", [id]);
+      const m = rows[0];
+
+      let view = fs.readFileSync("./views/form.html", "utf8");
+      view = view
+        .replace("{{action}}", `/update/${id}`)
+        .replace("{{nama}}", m.nama)
+        .replace("{{jurusan}}", m.jurusan)
+        .replace("{{angkatan}}", m.angkatan);
+      return new Response(render("form", view), {
+        headers: { "Content-Type": "text/html" }
+      });
+    }
+
+    // UPDATE DATA
+    if (url.pathname.startsWith("/update/") && req.method == "POST") {
+      const id = url.pathname.split("/")[2];
+      const body = await req.formData();
+      await db.query(
+        "UPDATE mahasiswa SET nama=?, jurusan=?, angkatan=? WHERE id=?",
+        [
+          body.get("nama"),
+          body.get("jurusan"),
+          body.get("angkatan"),
+          id
+        ]
+      );
+      return Response.redirect("/", 302);
+    }
+
     // SIMPAN DATA
     if (url.pathname == "/simpan" && req.method == "POST") {
       const body = await req.formData();
